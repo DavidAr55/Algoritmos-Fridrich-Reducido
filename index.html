@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algoritmos Fridrich Reducido - OLL y PLL</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configuración extendida de colores del cubo de Rubik
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cubeRed: '#C41E3A',
+            cubeOrange: '#FF5800',
+            cubeYellow: '#FFED00',
+            cubeGreen: '#009E60',
+            cubeBlue: '#0051BA',
+            cubeWhite: '#FFFFFF'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-cubeWhite text-black font-sans leading-relaxed">
+  <div class="max-w-3xl mx-auto p-6 space-y-8">
+    <!-- Título principal -->
+    <h1 class="text-3xl font-bold border-b-4 border-cubeBlue pb-2">
+      Algoritmos Fridrich Reducido - OLL y PLL
+    </h1>
+
+    <p>
+      Este documento es una recopilación personal de los algoritmos del método Fridrich Reducido
+      para resolver el Cubo de Rubik, centrado en las etapas OLL (Orientación de la Última Capa)
+      y PLL (Permutación de la Última Capa).
+    </p>
+
+    <!-- Notación de movimientos -->
+    <section>
+      <h2 class="text-2xl font-semibold text-cubeWhite bg-cubeRed px-3 py-1 rounded-md">
+        Notación de movimientos
+      </h2>
+      <div class="mt-4 flex flex-row space-x-4 overflow-x-auto">
+        <img
+          src="https://kubekings.com/img/cms/notacion-cubo/17.png"
+          alt="Notación 1"
+          class="h-48 w-auto rounded shadow"
+        />
+        <img
+          src="https://i.pinimg.com/736x/d3/ae/f7/d3aef7d30057cd83e9877e1a128767f1.jpg"
+          alt="Notación 2"
+          class="h-48 w-auto rounded shadow"
+        />
+      </div>
+    </section>
+
+    <!-- OLL -->
+    <section>
+      <h2 class="text-2xl font-semibold text-black border-l-4 border-cubeOrange pl-3">
+        🟡 OLL (Orientación de la Última Capa)
+      </h2>
+      <div class="space-y-6 mt-4">
+        <!-- Caso: Pez esquina al frente -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Pez (esquina al frente)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR3_1024.webp"
+            alt="Pez esquina al frente"
+            class="w-60 transform -rotate-90 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">R U2 R' U' R U' R'</pre>
+        </div>
+
+        <!-- Caso: Pez esquina contraria -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Pez (esquina contraria al frente)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR4_1024.webp"
+            alt="Pez esquina contraria"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">R U R' U R U2 R'</pre>
+        </div>
+
+        <!-- Caso: Cruz esquinas alineadas -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Cruz (esquinas alineadas)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR1_1024.webp"
+            alt="Cruz esquinas alineadas"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">
+R U2 R' U' [R U R' U'] R U' R'</pre>
+        </div>
+
+        <!-- Caso: Cruz esquinas desalineadas -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Cruz (esquinas desalineadas)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR2_1024.webp"
+            alt="Cruz esquinas desalineadas"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">
+R U2 R2 U' R2 U' R2 U2 R</pre>
+        </div>
+
+        <!-- Caso: Moño -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Moño</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR7_1024.webp"
+            alt="Moño"
+            class="w-60 transform rotate-180 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">L' U' L U' B U' L' U' L U B'</pre>
+        </div>
+
+        <!-- Caso: Bloque de Lego lados -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Bloque de Lego (esquinas a los lados)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR6_1024.webp"
+            alt="Bloque de Lego lados"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">L F R' F' L' F R F'</pre>
+        </div>
+
+        <!-- Caso: Bloque de Lego frente -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Caso: Bloque de Lego (esquinas al frente)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/OLL/CR5_1024.webp"
+            alt="Bloque de Lego frente"
+            class="w-60 transform rotate-180 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">R U2 R' B' U R U R' U' B</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLL -->
+    <section>
+      <h2 class="text-2xl font-semibold text-black border-l-4 border-cubeYellow pl-3">
+        🔁 PLL (Permutación de la Última Capa)
+      </h2>
+      <div class="space-y-6 mt-4">
+        <!-- Caso: esquinas correctas -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">No hay o solo una pareja de esquinas correctas</h3>
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">L' B L' F2 L B' L' F2 L2</pre>
+        </div>
+
+        <!-- U-perm horario -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Permutación horaria de aristas (U-perm horario)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/PLL/complet/U2_1024.webp"
+            alt="U-perm horario"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">
+R' U R' U' R' U' R' U R U R2</pre>
+        </div>
+
+        <!-- U-perm antihorario -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Permutación anti-horaria de aristas (U-perm antihorario)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/PLL/complet/U1_1024.webp"
+            alt="U-perm antihorario"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">R2 U' R' U' R U R U R U' R</pre>
+        </div>
+
+        <!-- H-perm -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Aristas intercambiadas con su vecino (H-perm)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/PLL/complet/Z_1024.webp"
+            alt="H-perm"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">M2 U' M2 U' M' U2 M2 U2 M'</pre>
+        </div>
+
+        <!-- Z-perm -->
+        <div>
+          <h3 class="text-xl font-medium mb-1">Aristas intercambiadas con su opuesto en forma de cruz (Z-perm)</h3>
+          <img
+            src="https://myrubik.com/3x3x3/resolucio/fridrich/PLL/complet/H_1024.webp"
+            alt="Z-perm"
+            class="w-60 rounded shadow mb-2"
+          />
+          <pre class="bg-gray-100 p-2 rounded text-sm font-mono">M2 U M2 U2 M2 U M2</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notas -->
+    <section>
+      <h2 class="text-2xl font-semibold text-cubeWhite bg-cubeGreen px-3 py-1 rounded-md">
+        📌 Notas
+      </h2>
+      <ul class="list-disc list-inside mt-2 space-y-1">
+        <li>Revisa las imágenes de notación antes de practicar los algoritmos.</li>
+        <li>La práctica constante y el reconocimiento de patrones visuales es clave para mejorar velocidad.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
